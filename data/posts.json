@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Node.js 入门：从零搭建 Web 服务器",
+    "summary": "Node.js 让 JavaScript 可以运行在服务端，本文带你从零开始，用不到 30 行代码搭建一个可用的 HTTP 服务器，并了解其事件驱动、非阻塞 I/O 的核心思想。",
+    "content": "<p>Node.js 是基于 Chrome V8 引擎的 JavaScript 运行时，让我们可以用 JavaScript 编写服务端程序。它最大的特点是<strong>事件驱动、非阻塞 I/O</strong>，非常适合构建高并发的网络应用。</p><h2>安装 Node.js</h2><p>前往 <code>nodejs.org</code> 下载对应平台的安装包，安装完成后在终端运行：</p><pre><code>node -v\nnpm -v</code></pre><p>看到版本号输出即为安装成功。</p><h2>第一个 HTTP 服务器</h2><p>创建 <code>server.js</code>，写入以下代码：</p><pre><code>const http = require('http');\n\nconst server = http.createServer((req, res) => {\n  res.writeHead(200, { 'Content-Type': 'text/plain' });\n  res.end('Hello, World!');\n});\n\nserver.listen(3000, () => {\n  console.log('Server running at http://localhost:3000');\n});</code></pre><p>运行 <code>node server.js</code>，打开浏览器访问 <code>http://localhost:3000</code>，你就能看到 <strong>Hello, World!</strong>。</p><h2>理解事件循环</h2><p>Node.js 使用单线程事件循环处理并发。当有 I/O 操作（读文件、网络请求）时，Node.js 不会阻塞等待，而是把回调注册到事件队列，继续处理其他请求，I/O 完成后再执行回调。这就是它能高效处理大量并发连接的秘诀。</p>",
+    "author": "刘建锋",
+    "date": "2026-04-20",
+    "tags": ["Node.js", "后端", "入门"]
+  },
+  {
+    "id": 2,
+    "title": "Express 路由与中间件详解",
+    "summary": "Express 是 Node.js 最流行的 Web 框架，本文深入讲解路由的定义方式、参数提取，以及中间件的执行机制，帮助你理解 Express 应用的请求处理流水线。",
+    "content": "<p>Express 是轻量、灵活的 Node.js Web 应用框架，提供了一套简洁的 API 来定义路由和处理请求。</p><h2>路由基础</h2><p>路由决定应用如何响应客户端对特定 URL 的请求：</p><pre><code>app.get('/', (req, res) => res.send('首页'));\napp.post('/login', (req, res) => res.send('登录'));\napp.get('/user/:id', (req, res) => {\n  res.send(`用户 ID: ${req.params.id}`);\n});</code></pre><h2>中间件机制</h2><p>中间件是一个函数，可以访问请求对象、响应对象和 <code>next</code> 函数。中间件按<strong>注册顺序</strong>依次执行：</p><pre><code>// 日志中间件\napp.use((req, res, next) => {\n  console.log(`${req.method} ${req.url}`);\n  next(); // 传递给下一个中间件\n});</code></pre><h2>错误处理中间件</h2><p>接受四个参数 <code>(err, req, res, next)</code> 的中间件专门用于错误处理：</p><pre><code>app.use((err, req, res, next) => {\n  console.error(err.stack);\n  res.status(500).send('服务器错误');\n});</code></pre><p>理解中间件流水线是掌握 Express 的关键，所有鉴权、日志、解析请求体的逻辑都通过中间件组合实现。</p>",
+    "author": "刘建锋",
+    "date": "2026-04-25",
+    "tags": ["Express", "Node.js", "中间件"]
+  },
+  {
+    "id": 3,
+    "title": "CSS Flexbox 布局完全指南",
+    "summary": "Flexbox 是现代 CSS 布局的基石，告别浮动和定位的种种坑，本文通过大量直观示例，帮你彻底搞清楚主轴、交叉轴、对齐方式等核心概念。",
+    "content": "<p>Flexbox（弹性盒子）是 CSS3 引入的一维布局模型，可以轻松实现元素的排列、对齐和空间分配。</p><h2>启用 Flexbox</h2><p>只需给容器设置 <code>display: flex</code>，其直接子元素就会变成弹性元素：</p><pre><code>.container {\n  display: flex;\n  gap: 16px;\n}</code></pre><h2>主轴与交叉轴</h2><p>Flexbox 有两条轴：<strong>主轴</strong>（由 <code>flex-direction</code> 决定方向）和<strong>交叉轴</strong>（垂直于主轴）。默认主轴是水平方向（<code>row</code>）。</p><h2>常用对齐属性</h2><ul><li><code>justify-content</code>：沿主轴对齐（<code>flex-start</code> / <code>center</code> / <code>space-between</code> / <code>space-around</code>）</li><li><code>align-items</code>：沿交叉轴对齐（<code>stretch</code> / <code>center</code> / <code>flex-start</code> / <code>flex-end</code>）</li><li><code>flex-wrap</code>：设为 <code>wrap</code> 允许换行</li></ul><h2>实战：居中一个元素</h2><pre><code>.parent {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}</code></pre><p>Flexbox 解决了 CSS 历史上最头疼的垂直居中问题，只需三行代码，告别 <code>margin: auto</code> 加 <code>position: absolute</code> 的时代。</p>",
+    "author": "刘建锋",
+    "date": "2026-04-28",
+    "tags": ["CSS", "前端", "布局"]
+  },
+  {
+    "id": 4,
+    "title": "Git 工作流实践：团队协作的正确姿势",
+    "summary": "选择合适的 Git 工作流能让团队协作事半功倍。本文对比 Git Flow、GitHub Flow、Trunk-based Development 三种主流工作流，分析各自适用场景，附带实用的分支命名和提交规范。",
+    "content": "<p>Git 工作流是团队成员协作开发的约定，没有放之四海而皆准的答案，关键是找到适合团队规模和发布节奏的方式。</p><h2>GitHub Flow（推荐多数团队）</h2><p>规则极简：<code>main</code> 分支始终可部署，所有新功能从 <code>main</code> 切出特性分支，完成后提 PR 合并回 <code>main</code>，合并即部署。</p><pre><code>git checkout -b feature/user-auth\n# 开发、提交...\ngit push origin feature/user-auth\n# 在 GitHub 发起 Pull Request</code></pre><h2>Git Flow（适合版本化发布）</h2><p>包含 <code>main</code>、<code>develop</code>、<code>feature/*</code>、<code>release/*</code>、<code>hotfix/*</code> 五类分支，适合有明确版本号的软件（如移动端 App、开源库）。缺点是流程较重。</p><h2>提交信息规范（Conventional Commits）</h2><pre><code>feat: 添加用户登录功能\nfix: 修复文章列表分页错误\ndocs: 更新 README 安装说明\nrefactor: 重构数据库连接模块</code></pre><p>规范的提交信息不仅方便 Code Review，还能自动生成 CHANGELOG，是团队协作的基础习惯。</p>",
+    "author": "刘建锋",
+    "date": "2026-04-30",
+    "tags": ["Git", "团队协作", "工程化"]
+  }
+]
